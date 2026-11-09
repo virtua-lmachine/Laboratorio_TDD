@@ -111,4 +111,19 @@ assert.equal(carrito.total(), 0);
 });
 
 
+describe('Reto A: Resumen de la compra', () => {
+  test('devuelve el resumen completo de una compra con descuento', () => {
+    carrito.agregar('Mouse', 50000, 2);
+    carrito.aplicarCupon('DESC10');
+
+    assert.deepEqual(carrito.resumen(), {
+      subtotal: 100000,
+      descuento: 10000,
+      iva: 17100,
+      total: 107100
+    });
+  });
+});
+
+
 });

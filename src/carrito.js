@@ -47,10 +47,21 @@ descuento() {
 if (!this.cupon) return 0;
 return Math.round(this.subtotal() * CUPONES[this.cupon]);
 }
+baseGravable() {
+return this.subtotal() - this.descuento();
+}
 iva() {
-return Math.round((this.subtotal() - this.descuento()) * IVA);
+return Math.round(this.baseGravable() * IVA);
 }
 total() {
-return this.subtotal() - this.descuento() + this.iva();
+return this.baseGravable() + this.iva();
+}
+resumen() {
+  return {
+    subtotal: this.subtotal(),
+    descuento: this.descuento(),
+    iva: this.iva(),
+    total: this.total()
+  };
 }
 }
