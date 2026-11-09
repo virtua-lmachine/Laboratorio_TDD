@@ -203,4 +203,25 @@ describe('Reto D: Cupones sin importar mayúsculas', () => {
 });
 
 
+describe('Reto E: Cupón de valor fijo', () => {
+
+  test('el cupón MENOS30K descuenta 30000 del subtotal', () => {
+    carrito.agregar('Mouse', 50000, 2);
+
+    carrito.aplicarCupon('MENOS30K');
+
+    assert.equal(carrito.descuento(), 30000);
+  });
+
+  test('el descuento fijo no puede superar el subtotal', () => {
+    carrito.agregar('Mouse', 20000, 1);
+
+    carrito.aplicarCupon('MENOS30K');
+
+    assert.equal(carrito.descuento(), 20000);
+    assert.equal(carrito.baseGravable(), 0);
+  });
+
+});
+
 });

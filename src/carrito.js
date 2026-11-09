@@ -2,8 +2,18 @@
 // Escribe aquí el código SOLO después de tener una prueba en rojo.
 const IVA = 0.19;
 const CUPONES = {
-DESC10: 0.10,
-DESC20: 0.20,
+  DESC10: {
+    tipo: 'porcentaje',
+    valor: 0.10
+  },
+  DESC20: {
+    tipo: 'porcentaje',
+    valor: 0.20
+  },
+  MENOS30K: {
+    tipo: 'fijo',
+    valor: 30000
+  }
 };
 export class Carrito {
 constructor() {
@@ -74,8 +84,19 @@ aplicarCupon(codigo) {
   this.cupon = codigoNormalizado;
 }
 descuento() {
-if (!this.cupon) return 0;
-return Math.round(this.subtotal() * CUPONES[this.cupon]);
+  if (!this.cupon) return 0;
+
+  const cupon = CUPONES[this.cupon];
+
+  if (cupon.tipo === 'porcentaje') {
+    return Math.round(this.subtotal() * cupon.valor);
+  }
+
+  if (cupon.tipo === 'fijo') {
+    return Math.min(cupon.valor, this.subtotal());
+  }
+
+  return 0;
 }
 baseGravable() {
 return this.subtotal() - this.descuento();
