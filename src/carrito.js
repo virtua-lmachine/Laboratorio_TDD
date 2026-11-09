@@ -31,6 +31,33 @@ throw new Error(`El producto "${nombre}" no está en el carrito`);
 }
 this.productos.splice(indice, 1);
 }
+
+actualizarCantidad(nombre, nueva) {
+  if (nueva < 0) {
+    throw new Error('La cantidad no puede ser negativa');
+  }
+
+  if (!Number.isInteger(nueva)) {
+    throw new Error('La cantidad debe ser un número entero');
+  }
+
+  const indice = this.productos.findIndex(
+    producto => producto.nombre === nombre
+  );
+
+  if (indice === -1) {
+    throw new Error('Producto no encontrado');
+  }
+
+  if (nueva === 0) {
+    this.productos.splice(indice, 1);
+    return;
+  }
+
+  this.productos[indice].cantidad = nueva;
+}
+
+
 cantidadDeItems() {
 return this.productos.reduce((suma, p) => suma + p.cantidad, 0);
 }

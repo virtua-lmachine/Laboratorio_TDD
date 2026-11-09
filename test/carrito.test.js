@@ -149,4 +149,36 @@ describe('Reto B: Costo de envío', () => {
 });
 
 
+describe('Reto C: Actualizar cantidad', () => {
+
+  test('actualizar la cantidad de un producto existente', () => {
+    carrito.agregar('Mouse', 50000, 2);
+
+    carrito.actualizarCantidad('Mouse', 5);
+
+    assert.equal(carrito.cantidadDeItems(), 5);
+    assert.equal(carrito.subtotal(), 250000);
+  });
+
+  test('si la nueva cantidad es cero, elimina el producto', () => {
+    carrito.agregar('Mouse', 50000, 2);
+
+    carrito.actualizarCantidad('Mouse', 0);
+
+    assert.equal(carrito.cantidadDeItems(), 0);
+    assert.equal(carrito.subtotal(), 0);
+  });
+
+  test('no permite actualizar la cantidad a un número negativo', () => {
+    carrito.agregar('Mouse', 50000, 2);
+
+    assert.throws(
+      () => carrito.actualizarCantidad('Mouse', -3),
+      /cantidad/i
+    );
+  });
+
+});
+
+
 });
