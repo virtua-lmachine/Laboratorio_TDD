@@ -97,13 +97,13 @@ describe('Iteración 7: IVA y total a pagar', () => {
 test('el IVA es el 19 % del subtotal cuando no hay cupón', () => {
 carrito.agregar('Mouse', 50000, 2);
 assert.equal(carrito.iva(), 19000);
-assert.equal(carrito.total(), 119000);
+assert.equal(carrito.total(), 131000);
 });
 test('el IVA se calcula sobre el valor con descuento', () => {
 carrito.agregar('Mouse', 50000, 2);
 carrito.aplicarCupon('DESC10');
 assert.equal(carrito.iva(), 17100);
-assert.equal(carrito.total(), 107100);
+assert.equal(carrito.total(), 119100);
 });
 test('un carrito vacío tiene total 0', () => {
 assert.equal(carrito.total(), 0);
@@ -120,9 +120,32 @@ describe('Reto A: Resumen de la compra', () => {
       subtotal: 100000,
       descuento: 10000,
       iva: 17100,
-      total: 107100
+      total: 119100
     });
   });
+});
+
+
+describe('Reto B: Costo de envío', () => {
+
+  test('cobra 12000 de envío cuando la base gravable es inferior a 150000', () => {
+    carrito.agregar('Mouse', 50000, 2);
+
+    assert.equal(carrito.envio(), 12000);
+  });
+
+  test('el envío es gratis cuando la base gravable es exactamente 150000', () => {
+    carrito.agregar('Teclado', 75000, 2);
+
+    assert.equal(carrito.envio(), 0);
+  });
+
+  test('el total incluye el costo de envío', () => {
+    carrito.agregar('Mouse', 50000, 2);
+
+    assert.equal(carrito.total(), 131000);
+  });
+
 });
 
 

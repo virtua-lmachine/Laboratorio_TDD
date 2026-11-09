@@ -54,7 +54,7 @@ iva() {
 return Math.round(this.baseGravable() * IVA);
 }
 total() {
-return this.baseGravable() + this.iva();
+  return this.subtotal() - this.descuento() + this.iva() + this.envio();
 }
 resumen() {
   return {
@@ -63,5 +63,20 @@ resumen() {
     iva: this.iva(),
     total: this.total()
   };
+}
+
+
+envio() {
+  const baseGravable = this.subtotal() - this.descuento();
+
+  if (baseGravable >= 150000) {
+    return 0;
+  }
+
+  if (baseGravable === 0) {
+    return 0;
+  }
+
+  return 12000;
 }
 }
