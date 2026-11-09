@@ -1,6 +1,5 @@
 // Laboratorio TDD: carrito de compras
 // Escribe aquí el código SOLO después de tener una prueba en rojo.
-
 export class Carrito {
 constructor() {
 this.productos = [];
@@ -18,6 +17,13 @@ existente.cantidad += cantidad;
 } else {
 this.productos.push({ nombre, precio, cantidad });
 }
+}
+eliminar(nombre) {
+const indice = this.productos.findIndex((p) => p.nombre === nombre);
+if (indice === -1) {
+throw new Error(`El producto "${nombre}" no está en el carrito`);
+}
+this.productos.splice(indice, 1);
 }
 cantidadDeItems() {
 return this.productos.reduce((suma, p) => suma + p.cantidad, 0);
