@@ -181,4 +181,26 @@ describe('Reto C: Actualizar cantidad', () => {
 });
 
 
+
+describe('Reto D: Cupones sin importar mayúsculas', () => {
+
+  test('acepta cupones escritos en minúsculas', () => {
+    carrito.agregar('Mouse', 50000, 2);
+
+    carrito.aplicarCupon('desc10');
+
+    assert.equal(carrito.descuento(), 10000);
+  });
+
+  test('acepta cupones con espacios al principio y al final', () => {
+    carrito.agregar('Mouse', 50000, 2);
+
+    carrito.aplicarCupon(' DESC10 ');
+
+    assert.equal(carrito.descuento(), 10000);
+  });
+
+});
+
+
 });

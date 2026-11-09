@@ -65,10 +65,13 @@ subtotal() {
 return this.productos.reduce((suma, p) => suma + p.precio * p.cantidad, 0);
 }
 aplicarCupon(codigo) {
-if (!(codigo in CUPONES)) {
-throw new Error(`El cupón "${codigo}" no es válido`);
-}
-this.cupon = codigo;
+  const codigoNormalizado = codigo.trim().toUpperCase();
+
+  if (!(codigoNormalizado in CUPONES)) {
+    throw new Error(`El cupón "${codigo}" no es válido`);
+  }
+
+  this.cupon = codigoNormalizado;
 }
 descuento() {
 if (!this.cupon) return 0;
